@@ -1,6 +1,5 @@
 package pageObjects.pages;
 
-import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -19,10 +18,6 @@ public class GoogleResultPage extends GooglePage {
 
     private By NASTEPNA=By.id("pnnext");
 
-    public void checkResultPage(String textToCheck) {
-        Assert.assertEquals("Tekst na stronie", textToCheck, driver.findElement(By.xpath("//*[@id=\"rhs_title\"]/span")).getText());
-    }
-
     public int countResultWithUrl(String pageURL) {
         List<WebElement> results = driver.findElements(By.cssSelector(".rc > .r >a"));
         Stream<WebElement> resultsStream = results.stream();
@@ -33,4 +28,14 @@ public class GoogleResultPage extends GooglePage {
         driver.findElement(NASTEPNA).click();
     }
 
+    public GoogleResultPage displayNextPage() {
+        driver.findElement(NASTEPNA).click();
+        return  new GoogleResultPage(driver);
+    }
+
+    public int countResultWithUrlMatching(String pageUrl) {
+        List<WebElement> results = driver.findElements(By.cssSelector(".rc > .r >a"));
+        Stream<WebElement> resultsStream = results.stream();
+        return (int) resultsStream.filter(result -> result.getAttribute("href").startsWith(pageUrl)).count();
+    }
 }

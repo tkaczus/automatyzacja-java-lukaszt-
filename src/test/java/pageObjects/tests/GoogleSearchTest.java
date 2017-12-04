@@ -11,18 +11,29 @@ import pageObjects.pages.GoogleResultPage;
  */
 public class GoogleSearchTest extends BaseTest {
 
-    @Test
-    public void firstSeleniumTest() {
+    private GoogleResultPage searchOnGoogle(String pageName) {
         //arrange
         GoogleMainPage mainPage = new GoogleMainPage(driver);
         mainPage.open();
         //act
-        GoogleResultPage resultPage = mainPage.searchInMainPage(CodeSprinters.CODESPRINTERS);
+        return mainPage.searchInMainPage(pageName);
+    }
+
+    @Test
+    public void verifyGoogleFindsCodeSprintersOnFirstPage() {
+        GoogleResultPage resultPage = searchOnGoogle(CodeSprinters.PAGE_NAME);
         //assert
-        resultPage.checkResultPage(CodeSprinters.PAGE_NAME);
         System.out.println(resultPage.countResultWithUrl(CodeSprinters.PAGE_URL));
-        resultPage.clickSecondPage();
-        Assert.assertEquals("czy będzie link liczba =",0,resultPage.countResultWithUrl(CodeSprinters.PAGE_URL));
+        Assert.assertEquals("czy będzie link liczba =", 1, resultPage.countResultWithUrl(CodeSprinters.PAGE_URL));
+    }
+
+    @Test
+    public void verifyGoogleFindsNoCodesprintersOnSecondPage() {
+        //arrange
+        GoogleResultPage resultPage = searchOnGoogle(CodeSprinters.PAGE_NAME);
+        GoogleResultPage secondResultPage = resultPage.displayNextPage();
+        //assert
+        Assert.assertTrue("pages with URL starting with", secondResultPage.countResultWithUrlMatching(CodeSprinters.PAGE_URL)==0);
     }
 
 }
