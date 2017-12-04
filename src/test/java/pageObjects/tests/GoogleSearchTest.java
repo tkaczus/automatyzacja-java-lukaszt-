@@ -1,6 +1,8 @@
 package pageObjects.tests;
 
+import org.junit.Assert;
 import org.junit.Test;
+import pageObjects.domain.CodeSprinters;
 import pageObjects.pages.GoogleMainPage;
 import pageObjects.pages.GoogleResultPage;
 
@@ -9,14 +11,18 @@ import pageObjects.pages.GoogleResultPage;
  */
 public class GoogleSearchTest extends BaseTest {
 
-    public static final String CODESPRINTERS = "codesprinters";
-
     @Test
     public void firstSeleniumTest() {
-        GoogleMainPage main= new GoogleMainPage(driver);
-        main.searchInMainPage(CODESPRINTERS);
-        GoogleResultPage results= new GoogleResultPage(driver);
-        results.checkResultPage("Code Sprinters");
+        //arrange
+        GoogleMainPage mainPage = new GoogleMainPage(driver);
+        mainPage.open();
+        //act
+        GoogleResultPage resultPage = mainPage.searchInMainPage(CodeSprinters.CODESPRINTERS);
+        //assert
+        resultPage.checkResultPage(CodeSprinters.PAGE_NAME);
+        System.out.println(resultPage.countResultWithUrl(CodeSprinters.PAGE_URL));
+        resultPage.clickSecondPage();
+        Assert.assertEquals("czy będzie link liczba =",0,resultPage.countResultWithUrl(CodeSprinters.PAGE_URL));
     }
 
 }

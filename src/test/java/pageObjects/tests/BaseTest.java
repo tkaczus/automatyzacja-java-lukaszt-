@@ -22,6 +22,9 @@ public class BaseTest {
 
     @After
     public void closeBrowser() {
-        if (driver != null) driver.close();
+        if (driver != null) {
+            driver.close();
+            driver.quit();
+        }
     }
 }

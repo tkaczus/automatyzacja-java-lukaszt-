@@ -7,21 +7,24 @@ import org.openqa.selenium.WebElement;
 /**
  * Created by Lukasz.Tkaczyk on 2017-12-04.
  */
-public class GoogleMainPage {
+public class GoogleMainPage extends GooglePage {
 
-    private static final String GOOGLE_LINK = "http://www.google.com";
-    By GOOGLE_LOCATOR = By.name("q");
-    protected WebDriver driver;
+    private static final By GOOGLE_LOCATOR = By.name("q");
 
     public GoogleMainPage(WebDriver driver) {
-        this.driver = driver;
+        super(driver);
     }
 
-    public void searchInMainPage(String searchText) {
-        driver.get(GOOGLE_LINK);
+    public GoogleResultPage searchInMainPage(String searchText) {
         final WebElement search = driver.findElement(GOOGLE_LOCATOR);
+        search.clear();
+        search.click();
         search.sendKeys(searchText);
         search.submit();
+        return new GoogleResultPage(driver);
     }
 
+    public void open() {
+        driver.get(GOOGLE_LINK);
+    }
 }
