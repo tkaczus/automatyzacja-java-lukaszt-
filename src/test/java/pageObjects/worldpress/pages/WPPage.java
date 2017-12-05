@@ -10,7 +10,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
  */
 public abstract class WPPage {
 
-    private static final long TIMEOUT_IN_SECONDS_WAITING_FOR_ELEMENT_VISIBLE = 15 ;
+    private static final long TIMEOUT_IN_SECONDS_WAITING_FOR_ELEMENT_VISIBLE = 15;
     private static final long TIMEOUT_IN_SECONDS_WAITING_FOR_ELEMENT_HIDDEN = 15;
     private static final long TIMEOUT_IN_SECONDS_WAITING_FOR_ELEMENT_CLICKABLE = 15;
     protected WebDriver driver;

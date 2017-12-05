@@ -32,14 +32,14 @@ public class WPReplayPage extends WPPage {
     public void leaveComment(Comment comment) {
         driver.findElement(TEXTAREA).click();
         driver.findElement(TEXTAREA).sendKeys(comment.getComment());
-        clickToActivateAndWriteToActive(EMAIL,EMAILACTIVE, comment.getEmail());
-        clickToActivateAndWriteToActive(AUTHOR,AUTHORACTIVE, comment.getName());
-        clickToActivateAndWriteToActive(URL,URLACTIVE, comment.getWebsite());
+        clickToActivateAndWriteToActive(EMAIL, EMAILACTIVE, comment.getEmail());
+        clickToActivateAndWriteToActive(AUTHOR, AUTHORACTIVE, comment.getName());
+        clickToActivateAndWriteToActive(URL, URLACTIVE, comment.getWebsite());
         waitUntilElementIsClickable(POSTCOMMENT);
         driver.findElement(POSTCOMMENT).click();
     }
 
-    private void clickToActivateAndWriteToActive(By ActivateElement,By ActiveElement,String text) {
+    private void clickToActivateAndWriteToActive(By ActivateElement, By ActiveElement, String text) {
         driver.findElement(ActivateElement).click();
         driver.findElement(ActiveElement).clear();
         driver.findElement(ActiveElement).sendKeys(text);

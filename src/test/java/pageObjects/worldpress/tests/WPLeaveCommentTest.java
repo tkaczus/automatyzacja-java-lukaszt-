@@ -21,7 +21,7 @@ public class WPLeaveCommentTest extends WPBaseTest {
         WPReplayPage replayPage = mainPage.openFirstNote();
         replayPage.leaveComment(comment);
         //assert
-        Assert.assertTrue("verify comment", replayPage.verifyComment(comment)>=1);
+        Assert.assertTrue("Verify comment", replayPage.verifyComment(comment) > 0);
     }
 
 }
