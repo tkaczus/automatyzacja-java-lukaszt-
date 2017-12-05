@@ -1,8 +1,10 @@
-package pageObjects.pages;
+package pageObjects.google.pages;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 /**
  * Created by Lukasz.Tkaczyk on 2017-12-04.
@@ -16,6 +18,9 @@ public class GoogleMainPage extends GooglePage {
     }
 
     public GoogleResultPage searchInMainPage(String searchText) {
+
+        WebDriverWait wait = new WebDriverWait(driver, 30);
+        wait.until(ExpectedConditions.elementToBeClickable(GOOGLE_LOCATOR));
         final WebElement search = driver.findElement(GOOGLE_LOCATOR);
         search.clear();
         search.click();

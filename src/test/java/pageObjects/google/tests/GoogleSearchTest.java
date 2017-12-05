@@ -1,10 +1,10 @@
-package pageObjects.tests;
+package pageObjects.google.tests;
 
 import org.junit.Assert;
 import org.junit.Test;
-import pageObjects.domain.CodeSprinters;
-import pageObjects.pages.GoogleMainPage;
-import pageObjects.pages.GoogleResultPage;
+import pageObjects.google.domain.CodeSprinters;
+import pageObjects.google.pages.GoogleMainPage;
+import pageObjects.google.pages.GoogleResultPage;
 
 /**
  * Created by Lukasz.Tkaczyk on 2017-12-04.

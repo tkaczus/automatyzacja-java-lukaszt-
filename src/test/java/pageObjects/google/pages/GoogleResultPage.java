@@ -1,4 +1,4 @@
-package pageObjects.pages;
+package pageObjects.google.pages;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -12,20 +12,18 @@ import java.util.stream.Stream;
  */
 public class GoogleResultPage extends GooglePage {
 
+    public static final String LOCATOR_SINGLE_RESULT = ".rc > .r >a";
+
     public GoogleResultPage(WebDriver driver) {
         super(driver);
     }
 
-    private By NASTEPNA=By.id("pnnext");
+    private static final By NASTEPNA=By.id("pnnext");
 
     public int countResultWithUrl(String pageURL) {
-        List<WebElement> results = driver.findElements(By.cssSelector(".rc > .r >a"));
+        List<WebElement> results = driver.findElements(By.cssSelector(LOCATOR_SINGLE_RESULT));
         Stream<WebElement> resultsStream = results.stream();
         return (int) resultsStream.filter(result -> result.getAttribute("href").equals(pageURL)).count();
-    }
-
-    public void clickSecondPage(){
-        driver.findElement(NASTEPNA).click();
     }
 
     public GoogleResultPage displayNextPage() {
@@ -34,7 +32,7 @@ public class GoogleResultPage extends GooglePage {
     }
 
     public int countResultWithUrlMatching(String pageUrl) {
-        List<WebElement> results = driver.findElements(By.cssSelector(".rc > .r >a"));
+        List<WebElement> results = driver.findElements(By.cssSelector(LOCATOR_SINGLE_RESULT));
         Stream<WebElement> resultsStream = results.stream();
         return (int) resultsStream.filter(result -> result.getAttribute("href").startsWith(pageUrl)).count();
     }

@@ -1,4 +1,4 @@
-package pageObjects.tests;
+package pageObjects.worldpress.tests;
 
 import org.junit.After;
 import org.junit.Before;
@@ -10,7 +10,7 @@ import java.util.concurrent.TimeUnit;
 /**
  * Created by Lukasz.Tkaczyk on 2017-12-04.
  */
-public class BaseTest {
+public class WPBaseTest {
     protected WebDriver driver;
 
     @Before

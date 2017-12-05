@@ -1,4 +1,4 @@
-package pageObjects.domain;
+package pageObjects.google.domain;
 
 /**
  * Created by Lukasz.Tkaczyk on 2017-12-04.
