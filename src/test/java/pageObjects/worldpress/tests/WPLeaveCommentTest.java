@@ -2,7 +2,7 @@ package pageObjects.worldpress.tests;
 
 import org.junit.Assert;
 import org.junit.Test;
-import pageObjects.worldpress.domain.User;
+import pageObjects.worldpress.domain.Comment;
 import pageObjects.worldpress.pages.WPMainPage;
 import pageObjects.worldpress.pages.WPReplayPage;
 
@@ -14,14 +14,14 @@ public class WPLeaveCommentTest extends WPBaseTest {
     @Test
     public void verifyLeavingCommendOnFirstPost() {
         //arrange
-        User user= new User();
-        System.out.println(user.toString());
+        Comment comment = new Comment();
         WPMainPage mainPage = new WPMainPage(driver);
         mainPage.open();
+        //act
         WPReplayPage replayPage = mainPage.openFirstNote();
-        replayPage.leaveComment(user);
+        replayPage.leaveComment(comment);
         //assert
-        Assert.assertTrue("verify comment", replayPage.veirfyComment(user)>=1);
+        Assert.assertTrue("verify comment", replayPage.verifyComment(comment)>=1);
     }
 
 }

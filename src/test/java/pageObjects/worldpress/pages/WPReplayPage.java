@@ -3,9 +3,7 @@ package pageObjects.worldpress.pages;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
-import pageObjects.worldpress.domain.User;
+import pageObjects.worldpress.domain.Comment;
 
 import java.util.List;
 import java.util.stream.Stream;
@@ -31,51 +29,26 @@ public class WPReplayPage extends WPPage {
     private static final By POSTCOMMENT = By.name("submit");
 
 
-//    public int countResultWithUrlMatching(String pageUrl) {
-//        List<WebElement> results = driver.findElements(By.cssSelector(LOCATOR_SINGLE_RESULT));
-//        Stream<WebElement> resultsStream = results.stream();
-//        return (int) resultsStream.filter(result -> result.getAttribute("href").startsWith(pageUrl)).count();
-//    }
-
-    public WebElement getWhenVisible(By locator, int timeout) {
-        WebElement element = null;
-        WebDriverWait wait = new WebDriverWait(driver, timeout);
-        element = wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
-        return element;
-
-    }
-    public void clickWhenReady(By locator, int timeout) {
-        WebElement element = null;
-        WebDriverWait wait = new WebDriverWait(driver, timeout);
-        element = wait.until(ExpectedConditions.elementToBeClickable(locator));
-        element.click();
-
-    }
-
-    public void leaveComment(User user) {
+    public void leaveComment(Comment comment) {
         driver.findElement(TEXTAREA).click();
-        driver.findElement(TEXTAREA).sendKeys(user.getComment());
-//        clickWhenReady(EMAIL,60);
-//        getWhenVisible(EMAIL,30).click();
-        driver.findElement(EMAIL).click();
-        driver.findElement(EMAILACTIVE).clear();
-        driver.findElement(EMAILACTIVE).sendKeys(user.getEmail());
-        driver.findElement(AUTHOR).click();
-        driver.findElement(AUTHORACTIVE).clear();
-        driver.findElement(AUTHORACTIVE).sendKeys(user.getName());
-        driver.findElement(URL).click();
-        driver.findElement(URLACTIVE).clear();
-        driver.findElement(URLACTIVE).sendKeys(user.getWebsite());
+        driver.findElement(TEXTAREA).sendKeys(comment.getComment());
+        clickToActivateAndWriteToActive(EMAIL,EMAILACTIVE, comment.getEmail());
+        clickToActivateAndWriteToActive(AUTHOR,AUTHORACTIVE, comment.getName());
+        clickToActivateAndWriteToActive(URL,URLACTIVE, comment.getWebsite());
         waitUntilElementIsClickable(POSTCOMMENT);
         driver.findElement(POSTCOMMENT).click();
     }
 
-    public int veirfyComment(User user) {
-        System.out.println("user.getComment() = " + user.getComment());
+    private void clickToActivateAndWriteToActive(By ActivateElement,By ActiveElement,String text) {
+        driver.findElement(ActivateElement).click();
+        driver.findElement(ActiveElement).clear();
+        driver.findElement(ActiveElement).sendKeys(text);
+    }
+
+    public int verifyComment(Comment comment) {
         waitUntilElementIsClickable(COMMENTS);
         List<WebElement> results = driver.findElements(COMMENTS);
-        System.out.println("results.size() = " + results.size());
         Stream<WebElement> resultsStream = results.stream();
-        return (int) resultsStream.filter(result -> result.getText().contains(user.getComment())).count();
+        return (int) resultsStream.filter(result -> result.getText().contains(comment.getComment())).count();
     }
 }
