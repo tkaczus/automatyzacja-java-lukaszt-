@@ -13,7 +13,6 @@ import java.util.stream.Stream;
  */
 public class WPReplayPage extends WPPage {
 
-
     public WPReplayPage(WebDriver driver) {
         super(driver);
     }
@@ -28,10 +27,9 @@ public class WPReplayPage extends WPPage {
     private static final By URLACTIVE = By.id("url");
     private static final By POSTCOMMENT = By.name("submit");
 
-
     public void leaveComment(Comment comment) {
-        driver.findElement(TEXTAREA).click();
-        driver.findElement(TEXTAREA).sendKeys(comment.getComment());
+        waitUntilElementIsClickable(TEXTAREA);
+        clickToActivateAndWriteToActive(TEXTAREA, TEXTAREA, comment.getComment());
         clickToActivateAndWriteToActive(EMAIL, EMAILACTIVE, comment.getEmail());
         clickToActivateAndWriteToActive(AUTHOR, AUTHORACTIVE, comment.getName());
         clickToActivateAndWriteToActive(URL, URLACTIVE, comment.getWebsite());
@@ -50,5 +48,16 @@ public class WPReplayPage extends WPPage {
         List<WebElement> results = driver.findElements(COMMENTS);
         Stream<WebElement> resultsStream = results.stream();
         return (int) resultsStream.filter(result -> result.getText().contains(comment.getComment())).count();
+    }
+
+    public void clickReplayOnComment(Comment comment) {
+        waitUntilElementIsClickable(COMMENTS);
+        List<WebElement> results = driver.findElements(COMMENTS);
+        for (WebElement result : results) {
+            if (result.getText().contains(comment.getComment())) {
+//                System.out.println(result.getText());
+                result.findElement(By.cssSelector("div.reply > a")).click();
+            }
+        }
     }
 }

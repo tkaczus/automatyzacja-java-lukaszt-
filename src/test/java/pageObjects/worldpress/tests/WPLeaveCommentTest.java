@@ -24,4 +24,21 @@ public class WPLeaveCommentTest extends WPBaseTest {
         Assert.assertTrue("Verify comment", replayPage.verifyComment(comment) > 0);
     }
 
+
+    @Test
+    public void verifyLeavingCommendOnFirstPostAddReplay() {
+        //arrange
+        Comment comment = new Comment();
+        WPMainPage mainPage = new WPMainPage(driver);
+        mainPage.open();
+        //act
+        WPReplayPage replayPage = mainPage.openFirstNote();
+        replayPage.leaveComment(comment);
+        replayPage.clickReplayOnComment(comment);
+        comment.setComment("Replay to "+comment.getComment());
+        replayPage.leaveComment(comment);
+        //assert
+        Assert.assertTrue("Verify comment", replayPage.verifyComment(comment) > 0);
+    }
+
 }

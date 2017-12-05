@@ -1,5 +1,6 @@
 package pageObjects.worldpress.pages;
 
+import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
@@ -23,6 +24,8 @@ public class WPMainPage extends WPPage {
 
     public WPReplayPage openFirstNote() {
         driver.findElement(COMMENTS).click();
+        String url = driver.getCurrentUrl();
+        Assert.assertTrue("Verify opening page with url #comments", url.contains("comments"));
         return new WPReplayPage(driver);
     }
 }
